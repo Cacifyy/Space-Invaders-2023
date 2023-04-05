@@ -25,22 +25,22 @@ void init_laser_cannon(Laser_Cannon *laser_cannon) {
 
 void init_armada(Invader *invader) {
 
-int i,j;
+    int i,j;
 
-invader->x = INVADER_START_X;
-invader->y = INVADER_START_Y;
-invader->delta_x = -1;
-invader->delta_y = 0;
- for ( i = 0; i < ROWS; i++ ) {
+    invader->x = INVADER_START_X;
+    invader->y = INVADER_START_Y;
+    invader->delta_x = -1;
+    invader->delta_y = 0;
+    for ( i = 0; i < ROWS; i++ ) {
         for( j = 0; j < COLUMNS; j++ ) {
             invader->is_alive[i][j] = TRUE;
         }
     }
-invader->left = INVADER_LEFT;
-invader->right = INVADER_RIGHT;
-invader->bottom = INVADER_BOTTOM;
-invader->dir = 0; 
-invader->move = TRUE;
+    invader->left = INVADER_LEFT;
+    invader->right = INVADER_RIGHT;
+    invader->bottom = INVADER_BOTTOM;
+    invader->dir = 0; 
+    invader->move = TRUE;
 
     return;
 }
@@ -212,7 +212,7 @@ void find_left_of_armada(Invader *invader) {
 
 /* hit_det_on_armada (Invader *invader, Laser *laser, Score *score): determines if the player hit
     an alien and updates the score if it did. */
-void hit_det_on_armada (Invader *invader, Laser *laser, Score *score ) {
+void hit_det_on_armada (Invader *invader, Laser *laser, Score *score, Game *game ) {
 
     UINT16 i, j, k; 
 
@@ -234,10 +234,15 @@ void hit_det_on_armada (Invader *invader, Laser *laser, Score *score ) {
                 if (invader->is_alive[i][j] == TRUE) {
                     invader->is_alive[i][j] = FALSE;
                     laser->is_on_screen[k] = FALSE;
-
-                    /*
-                    game->alien_counter--; */
+                    
+                    game->alien_counter--;
                     explosion_sound();
+
+
+                    if (game->alien_counter == 0) {
+                        game->game_over = TRUE;
+                    }
+
                     Update_score(score);
                 } 
                 }

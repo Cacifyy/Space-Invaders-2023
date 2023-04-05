@@ -74,7 +74,7 @@ void find_right_of_armada(Invader *invader);
 
 void find_left_of_armada(Invader *invader); 
 
-void hit_det_on_armada (Invader *invader, Laser *laser, Score *score);
+void hit_det_on_armada (Invader *invader, Laser *laser, Score *score, Game *game );
 
 void hit_det_on_player (Laser_Cannon *laser_cannon, Laser *laser, Game *game);
 

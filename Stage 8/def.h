@@ -68,4 +68,7 @@ Description: Helper header file to house all the defines of previous stages and 
 #define SCREEN_HEIGHT 400
 #define BLACK 0xFF
 
+#define VIDEO_BASE_HIGH 0xFFFF8201
+#define BYTE_BOUNDARY 256
+
 #endif
