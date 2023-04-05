@@ -4,19 +4,22 @@ UINT8 buffer[32256];
 
 int main () {
 
-/*
-    void *base = Physbase(); */
+    UINT16 *base;
+    UINT16 *second_base = (UINT16* )align_base(buffer);
+    UINT16 game_selection = 1;
 
-    UINT16 *base = get_video_base();
-    void *second_base = align_base(buffer);
+    base = get_video_base();
 
     disable_cursor();
 
     clear();
 
-    while (1) {
-        menu((UINT32* )base);
-        game_start(base, second_base); 
+    while (game_selection != EXIT_GAME) {
+        game_selection = menu((UINT32* )base);
+
+        if (game_selection == PLYR_1_MODE) {
+            game_start(base, second_base); 
+        } 
     }
 
     return 0;
@@ -28,7 +31,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
     UINT32 old_clock = 0;
     UINT32 time;
     UINT32 musictime = 0;
-    UINT8 input;
+    UINT32 input;
     BOOL move = TRUE;
     UINT16 buffer_num = 1;
 
@@ -49,7 +52,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
     
     while(game.game_over == FALSE) {
         if(Cconis()) {
-            input = (char)Cnecin();
+            input = Cnecin();
             async_ev(&laser_cannon, &laser, input);
         }   
 
@@ -66,7 +69,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     render_master(base, &laser_cannon, &laser, &invader, &score);
 
-                    Setscreen(-1, base, -1);
+                    set_video_base(base);
                     Vsync();
 
                     buffer_num = 0;
@@ -77,7 +80,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     render_master(second_base, &laser_cannon, &laser, &invader, &score);
 
-                    Setscreen(-1, second_base, -1);
+                    set_video_base(second_base);
                     Vsync();
 
                      update_music(musictime);
@@ -92,7 +95,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
     clear_screen(base);
 
-    Setscreen(-1, base, -1);
+    set_video_base(base);
     Vsync();
 
     return;
@@ -153,19 +156,19 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
     }
 }
 
-void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, char input ) {
+void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, UINT32 input ) {
 
-    if( input == 'a') 
+    if( input == LEFT_ARROW) 
     {  
         laser_cannon->delta_x = -1; 
         Laser_cannon_input(laser_cannon);
     }
-    if ( input == 'd') 
+    if ( input == RIGHT_ARROW) 
     {
         laser_cannon->delta_x = 1;
         Laser_cannon_input(laser_cannon);
     }
-    if (input == 'w') {
+    if (input == SPACE) {
 
         Player_laser_input(laser_cannon, laser);
     }
@@ -174,13 +177,60 @@ void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, char input ) {
 
 }
 
-void menu(UINT32 *base) {
+UINT16 menu(UINT32 *base) {
 
-    while (Cconis() == 0) {
-        render_splash((UINT32*) base);
+    UINT16 game_selection;
+    UINT32 input;
+
+    render_splash((UINT32*) base, game_selection);
+
+    while (1) {
+        if(Cconis()) {
+            input = Cnecin();
+
+            if(input == ENTER) {
+                game_selection = PLYR_1_MODE;
+                return game_selection;
+            } 
+            else if (input == ESC) {
+                game_selection = EXIT_GAME;
+                return game_selection;
+            }
+        }
+
     }
-
 }
+
+/*
+    UINT16 game_selection = 0; 
+    UINT32 input;
+
+    render_splash((UINT32*) base, game_selection);
+    while (1) {
+        if (Cconis()) {
+            input = Cnecin();
+
+            if(input == ENTER) {
+                return game_selection;
+            }
+            else if (input == ESC) {
+                game_selection = EXIT_GAME;
+                return game_selection;
+            }
+            else if (input == DOWN_ARROW) {
+                if ((game_selection + 1) < 3) {
+                    game_selection++;
+                }
+            }
+            else if (input == UP_ARROW) {
+                if((game_selection - 1) >= 0) {
+                    game_selection--;
+                }
+            }   
+        }
+        render_splash((UINT32*) base, game_selection);
+    }/*
+}*/
 
 UINT32 game_clock() {
 

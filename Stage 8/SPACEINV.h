@@ -7,21 +7,19 @@
 #include "raster.h"
 #include "render.h"
 #include "clear.h"
-#include "base.h"
 #include "def.h"
 #include "music.h"
+#include "base.h"
 
 #include <osbind.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <linea.h>
-#include <string.h>
 
 void sync_ev (Invader *invader, Laser *laser, Score *score, Laser_Cannon *laser_cannon, Game *game);
 
-void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, char input );
+void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, UINT32 input );
 
-void menu(UINT32 *base);
+UINT16 menu(UINT32 *base);
 
 void game_start(UINT16 *base, UINT16 *second_base);
 

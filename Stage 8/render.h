@@ -16,6 +16,6 @@ void render_laser( const Laser *laser,  UINT16 *base);
 void render_armada(  const Invader *invader, UINT16 *base);
 void render_score (const Score *score, UINT16 *base);
 void render_lives (const Laser_Cannon *laser_cannon, UINT16 *base);
-void render_splash(UINT32 *base);
+void render_splash(UINT32 *base, UINT16 game_selection);
 
 #endif
