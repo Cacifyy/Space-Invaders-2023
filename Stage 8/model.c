@@ -234,13 +234,15 @@ void hit_det_on_armada (Invader *invader, Laser *laser, Score *score, Game *game
                 if (invader->is_alive[i][j] == TRUE) {
                     invader->is_alive[i][j] = FALSE;
                     laser->is_on_screen[k] = FALSE;
-
                     
                     game->alien_counter--;
+                    explosion_sound();
+
 
                     if (game->alien_counter == 0) {
                         game->game_over = TRUE;
                     }
+
                     Update_score(score);
                 } 
                 }

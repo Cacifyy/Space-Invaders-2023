@@ -9,6 +9,7 @@
 #include "clear.h"
 #include "base.h"
 #include "def.h"
+#include "music.h"
 
 #include <osbind.h>
 #include <stdlib.h>

@@ -39,6 +39,7 @@ void Player_laser_input(Laser_Cannon *laser_cannon, Laser *laser) {
             laser->y[i] = laser_cannon->y;
             laser->is_on_screen[i] = TRUE;
 
+            cannon_shot();
             return;
         }
     }

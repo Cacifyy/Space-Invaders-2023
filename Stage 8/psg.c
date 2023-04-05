@@ -96,7 +96,7 @@ void enable_channel(int channel, int tone_on, int noise_on){
             }
             break; 
         case A_NOISE_C_MUSIC:
-            if(tone_on == 0 && noise_on == 1){
+            if(tone_on == 1 && noise_on == 1){
                 enable_val = (0x33);
             }
             break;

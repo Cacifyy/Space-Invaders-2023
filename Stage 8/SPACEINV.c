@@ -27,6 +27,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
     UINT32 curr_clock;
     UINT32 old_clock = 0;
     UINT32 time;
+    UINT32 musictime = 0;
     UINT8 input;
     BOOL move = TRUE;
     UINT16 buffer_num = 1;
@@ -44,7 +45,8 @@ void game_start(UINT16 *base, UINT16 *second_base) {
     init_game(&game);
 
     render_master(base, &laser_cannon, &laser, &invader, &score);
-
+    start_music();
+    
     while(game.game_over == FALSE) {
         if(Cconis()) {
             input = (char)Cnecin();
@@ -54,7 +56,9 @@ void game_start(UINT16 *base, UINT16 *second_base) {
         curr_clock = game_clock();
         time = curr_clock - old_clock; 
         if (time > 0)
-        {         
+        {      
+            musictime += time;
+
             sync_ev(&invader, &laser, &score, &laser_cannon, &game);
                 if (buffer_num == 1) {
 
@@ -76,6 +80,8 @@ void game_start(UINT16 *base, UINT16 *second_base) {
                     Setscreen(-1, second_base, -1);
                     Vsync();
 
+                     update_music(musictime);
+ 
                     buffer_num = 1;
                 }
             }

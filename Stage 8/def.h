@@ -1,3 +1,17 @@
+/*    
+Group Student Name: Jason Szeto, Ben Cacic
+Student Email: jszet006@mtroyal.ca, bcaci729@mtroyal.ca
+File Name: def.H
+Instructor: Paul Pospisil
+Assignment: Space Invaders - Stage 2
+Recent Update: April 4th, 2023
+
+Description: Helper header file to house all the defines of previous stages and beyond, to reduce redundant defines
+*/
+
+
+
+
 #ifndef DEF_H
 #define DEF_H
 

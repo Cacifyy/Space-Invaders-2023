@@ -6,6 +6,7 @@
 #include "types.h"
 #include "raster.h"
 #include "def.h"
+#include "effects.h"
 
 typedef struct 
 {
