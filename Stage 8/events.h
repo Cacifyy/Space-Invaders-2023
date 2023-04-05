@@ -8,6 +8,7 @@
 #include "model.h"
 #include "types.h"
 #include "def.h"
+#include "effects.h"
 
 void Laser_cannon_input(Laser_Cannon *laser_cannon); 
 

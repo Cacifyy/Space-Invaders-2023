@@ -7,6 +7,7 @@ int main () {
     UINT32 curr_clock;
     UINT32 old_clock = 0;
     UINT32 time;
+    UINT32 musictime = 0;
     UINT8 input;
     BOOL move = TRUE;
 
@@ -36,7 +37,8 @@ int main () {
     }
 
     render_master(base, &laser_cannon, &laser, &invader, &score);
-
+    start_music();
+    
     while(game.game_over == FALSE) {
 
         if(Cconis()) {
@@ -48,6 +50,7 @@ int main () {
         time = curr_clock - old_clock; 
         if (time > 0)
         {      
+            musictime += time;
             sync_ev(&invader, &laser, &score, &laser_cannon, &game);
 
             if (buffer_num == 1) {
@@ -73,13 +76,14 @@ int main () {
 
                 buffer_num = 1;
             }
+            update_music(musictime);
             }
         } 
         old_clock = curr_clock; 
-        
-        Setscreen(-1, base, -1);
-        Vsync();
-
+    
+    Setscreen(-1, base, -1);
+    Vsync();
+    stop_sound();
     return 0;
 
 }

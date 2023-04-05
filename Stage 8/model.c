@@ -237,6 +237,7 @@ void hit_det_on_armada (Invader *invader, Laser *laser, Score *score ) {
 
                     /*
                     game->alien_counter--; */
+                    explosion_sound();
                     Update_score(score);
                 } 
                 }

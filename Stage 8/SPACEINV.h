@@ -8,6 +8,7 @@
 #include "render.h"
 #include "clear.h"
 #include "def.h"
+#include "music.h"
 
 #include <osbind.h>
 #include <stdlib.h>
