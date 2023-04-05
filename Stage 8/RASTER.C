@@ -239,12 +239,11 @@ UINT16 *get_video_base() {
 
 	old_ssp = Super(0L);
 
-	base = (UINT8 *)0xFFFF8201;
-	*base = *base << 8;
+	base = (UINT16 *) get_base();
 
 	Super(old_ssp);
 
-	return (UINT16 *)base;
+	return base;
 }
 
 void set_video_base() {
@@ -252,7 +251,6 @@ void set_video_base() {
 } 
 
 */
-
 void clear()
 {
 	printf("\033E\033f\n");		/*clears screen, hides cursor*/

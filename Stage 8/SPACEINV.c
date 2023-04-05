@@ -6,9 +6,10 @@ int main () {
 
 /*
     void *base = Physbase(); */
+    UINT16 *base;
+    UINT16 *second_base = (UINT16* )align_base(buffer);
+    base = get_video_base();
 
-    UINT16 *base = get_video_base();
-    void *second_base = align_base(buffer);
 
     disable_cursor();
 
@@ -66,7 +67,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     render_master(base, &laser_cannon, &laser, &invader, &score);
 
-                    Setscreen(-1, base, -1);
+                    set_video_base(base);
                     Vsync();
 
                     buffer_num = 0;
@@ -77,7 +78,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     render_master(second_base, &laser_cannon, &laser, &invader, &score);
 
-                    Setscreen(-1, second_base, -1);
+                    set_video_base(second_base);
                     Vsync();
 
                      update_music(musictime);
@@ -92,7 +93,7 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
     clear_screen(base);
 
-    Setscreen(-1, base, -1);
+    set_video_base(base);
     Vsync();
 
     return;
@@ -176,7 +177,7 @@ void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, char input ) {
 
 void menu(UINT32 *base) {
 
-    while (Cconis() == 0) {
+    while (Cconin() != ENTER || Cconin() != ESC) {
         render_splash((UINT32*) base);
     }
 

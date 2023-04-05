@@ -7,15 +7,13 @@
 #include "raster.h"
 #include "render.h"
 #include "clear.h"
-#include "base.h"
 #include "def.h"
 #include "music.h"
+#include "base.h"
 
 #include <osbind.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <linea.h>
-#include <string.h>
 
 void sync_ev (Invader *invader, Laser *laser, Score *score, Laser_Cannon *laser_cannon, Game *game);
 

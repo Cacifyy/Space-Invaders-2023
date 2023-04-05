@@ -71,4 +71,12 @@ Description: Helper header file to house all the defines of previous stages and 
 #define VIDEO_BASE_HIGH 0xFFFF8201
 #define BYTE_BOUNDARY 256
 
+#define LEFT_ARROW 0x004B0000
+#define RIGHT_ARROW 0x004D0000
+#define UP_ARROW 0x00480000
+#define DOWN_ARROW 0x0050000
+#define SPACE 0x00390020
+#define ENTER 0x001C000D
+#define ESC 0x0001001B
+
 #endif
