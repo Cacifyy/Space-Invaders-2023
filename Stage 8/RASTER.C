@@ -231,6 +231,27 @@ void draw_splash(UINT32 *base) {
 		*(base + i) = splash_screen[i];
 	}
 }
+/*
+UINT16 *get_video_base() {
+
+	UINT32 old_ssp;
+	UINT8 *base;
+
+	old_ssp = Super(0L);
+
+	base = (UINT8 *)0xFFFF8201;
+	*base = *base << 8;
+
+	Super(old_ssp);
+
+	return (UINT16 *)base;
+}
+
+void set_video_base() {
+
+} 
+
+*/
 
 void clear()
 {

@@ -4,16 +4,32 @@ UINT8 buffer[32256];
 
 int main () {
 
+/*
+    void *base = Physbase(); */
+
+    UINT16 *base = get_video_base();
+    void *second_base = align_base(buffer);
+
+    disable_cursor();
+
+    clear();
+
+    while (1) {
+        menu((UINT32* )base);
+        game_start(base, second_base); 
+    }
+
+    return 0;
+}
+    
+void game_start(UINT16 *base, UINT16 *second_base) {
+
     UINT32 curr_clock;
     UINT32 old_clock = 0;
     UINT32 time;
     UINT8 input;
     BOOL move = TRUE;
-
     UINT16 buffer_num = 1;
-
-    void *base = Physbase(); 
-    void *second_base = get_base(buffer);
 
     Laser laser;
     Laser_Cannon laser_cannon;
@@ -27,18 +43,9 @@ int main () {
     init_laser(&laser);
     init_game(&game);
 
-    disable_cursor();
-
-    clear();
-    
-    while (Cconis() == 0) {
-        render_splash((UINT32*) base);
-    }
-
     render_master(base, &laser_cannon, &laser, &invader, &score);
 
     while(game.game_over == FALSE) {
-
         if(Cconis()) {
             input = (char)Cnecin();
             async_ev(&laser_cannon, &laser, input);
@@ -47,47 +54,48 @@ int main () {
         curr_clock = game_clock();
         time = curr_clock - old_clock; 
         if (time > 0)
-        {      
+        {         
             sync_ev(&invader, &laser, &score, &laser_cannon, &game);
+                if (buffer_num == 1) {
 
-            if (buffer_num == 1) {
+                    clear_screen(base);
 
-                clear_screen(base);
+                    render_master(base, &laser_cannon, &laser, &invader, &score);
 
-                render_master(base, &laser_cannon, &laser, &invader, &score);
+                    Setscreen(-1, base, -1);
+                    Vsync();
 
-                Setscreen(-1, base, -1);
-                Vsync();
+                    buffer_num = 0;
+                } 
+                else if (buffer_num == 0) {
 
-                buffer_num = 0;
+                    clear_screen(second_base);
 
-            } 
-            else if (buffer_num == 0) {
+                    render_master(second_base, &laser_cannon, &laser, &invader, &score);
 
-                clear_screen(second_base);
+                    Setscreen(-1, second_base, -1);
+                    Vsync();
 
-                render_master(second_base, &laser_cannon, &laser, &invader, &score);
-
-                Setscreen(-1, second_base, -1);
-                Vsync();
-
-                buffer_num = 1;
-            }
+                    buffer_num = 1;
+                }
             }
         } 
-        old_clock = curr_clock; 
-        
-        Setscreen(-1, base, -1);
-        Vsync();
+    old_clock = curr_clock; 
+    render_master(base, &laser_cannon, &laser, &invader, &score); /*Render very last updated frame because if the player is hit 3 times, it updates first in the model and
+    then terminates the game while still displaying 1 life left because render_master() isn't called until next iteration of the loop.*/
 
-    return 0;
+    clear_screen(base);
 
-}
+    Setscreen(-1, base, -1);
+    Vsync();
+
+    return;
+    }
 
 void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser_cannon, Game *game ) {
 
     move_laser(laser);
-    hit_det_on_armada(invader, laser, score);
+    hit_det_on_armada(invader, laser, score, game);
     hit_det_on_player(laser_cannon, laser, game);
     boundary_checker(invader);
     
@@ -99,7 +107,7 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
         switch (invader->dir)
         {
             case 0:
-                if((invader->x + invader->left) > 0) {
+                if((invader->x + invader->left) > MIN_X) {
                     invader->delta_x = -1;
                     invader->delta_y = 0;
                     move_invaders(invader);
@@ -112,11 +120,11 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
                 break;
 
             case 1:
-                if((invader->x + invader->right) < 39) {
+                if((invader->x + invader->right) < MAX_X) {
                     invader->delta_x = 1;
                     invader->delta_y = 0;
                     move_invaders(invader);
-                    if ((invader->x + invader->right) == 39) { 
+                    if ((invader->x + invader->right) == MAX_X) { 
                         invader->dir = 0;
                         invader->delta_y = 3;
                         move_invaders_down(invader);
@@ -160,6 +168,14 @@ void async_ev ( Laser_Cannon *laser_cannon, Laser *laser, char input ) {
 
 }
 
+void menu(UINT32 *base) {
+
+    while (Cconis() == 0) {
+        render_splash((UINT32*) base);
+    }
+
+}
+
 UINT32 game_clock() {
 
     UINT32 curr_clock;
@@ -173,15 +189,15 @@ UINT32 game_clock() {
 
 }
 
-UINT8 *get_base(UINT8 *buffer) {
+UINT8 *align_base(UINT8 *buffer) {
 
     UINT8 *base;
-    UINT16 difference;
+    UINT16 offset;
     base = buffer;
-    difference = (int)base;
-    difference %= 0x100;
-    difference = 0x100 - difference;
+    offset = (UINT16)base;
+    offset %= BYTE_BOUNDARY;
+    offset = BYTE_BOUNDARY - offset;
     
-    return base + difference;
+    return base + offset;
 
 }

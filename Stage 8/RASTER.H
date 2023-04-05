@@ -1,6 +1,8 @@
 #ifndef RASTER_H
 #define RASTER_H
 
+#include <osbind.h>
+
 #include "types.h"
 #include "font.h"
 #include "splash.h"
@@ -18,6 +20,8 @@ void draw_alien_end_word(UINT16 *base, int x, int y);
 void draw_laser_word(UINT16 *base, int x, int y);
 void draw_word(UINT16 *base, int x, int y, UINT16 ch);
 void draw_splash(UINT32 *base);
+/*UINT16 *get_video_base();*/
+void set_video_base(); 
 void clear();
 void disable_cursor();
 
