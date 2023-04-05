@@ -19,9 +19,6 @@ events.o: events.c events.h
 font.o: font.c font.h
 	cc68x -g -c font.c 
 
-splash.o: splash.c splash.h
-	cc68x -g -c splash.c
-
 clear.o: clear.s clear.h
 	gen -D -L2 clear.s 
 
