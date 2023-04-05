@@ -54,7 +54,6 @@ void init_laser(Laser *laser) {
         laser->delta_y[i] = 0;
         laser->is_on_screen[i] = FALSE;
    }
-
     return;
 }
 
@@ -139,9 +138,6 @@ void move_invaders(Invader *invader) {
 void move_invaders_down(Invader *invader) {
 
     invader->y += invader->delta_y;
-/*
-    find_bottom_of_armada(invader);
-*/
     return;
 }
 
@@ -155,7 +151,6 @@ void boundary_checker(Invader *invader) {
     if (invader->dir == 1 && (invader->x + 10) > 38 ) {
         find_right_of_armada(invader);
     }
-
 }
 
 /*find_bottom_of_armada(Invader *invader): find bottom of armada. */
@@ -166,7 +161,7 @@ void find_bottom_of_armada(Invader *invader) {
 
     y = invader->bottom;
 
-    for (x = 0; x < 10; x++) {
+    for (x = 0; x < rows; x++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }
@@ -185,7 +180,7 @@ void find_right_of_armada(Invader *invader) {
 
     x = invader->right;
 
-    for (y = 0; y < 5; y++) {
+    for (y = 0; y < columns; y++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }
@@ -204,7 +199,7 @@ void find_left_of_armada(Invader *invader) {
 
     x = invader->left;
 
-    for (y = 0; y < 5; y++) {
+    for (y = 0; y < columns; y++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }

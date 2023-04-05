@@ -37,8 +37,7 @@ typedef struct
     int delta_x, delta_y;
     BOOL is_alive[rows][columns];
     UINT16 row[columns]; 
-    UINT16 left, right, bottom;
-    UINT16 dir;
+    UINT16 left, right, bottom, dir;
     BOOL move;
 } Invader;
 

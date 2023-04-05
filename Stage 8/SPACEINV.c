@@ -90,7 +90,6 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
     hit_det_on_armada(invader, laser, score);
     hit_det_on_player(laser_cannon, laser, game);
     boundary_checker(invader);
-    find_bottom_of_armada(invader);
     
     if (invader->x == laser_cannon->x) {
         Alien_fires_laser(invader, laser);
@@ -121,16 +120,22 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
                         invader->dir = 0;
                         invader->delta_y = 3;
                         move_invaders_down(invader);
-
                     }
                 }
                 break; 
         } 
-            invader->move = FALSE;
+        invader->move = FALSE;
     }
     else 
     {
         invader->move = TRUE;
+    }
+
+    if (invader->delta_y > 0) {
+        find_bottom_of_armada(invader);
+        if((invader->y + (invader->bottom * 16)) == 336) {
+            game->game_over = TRUE;
+        }
     }
 }
 
