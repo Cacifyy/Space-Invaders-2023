@@ -1,12 +1,17 @@
-#include "events.h"
+/*    
+Group Student Name: Jason Szeto, Ben Cacic
+Student Email: jszet006@mtroyal.ca, bcaci729@mtroyal.ca
+File Name: events.H
+Instructor: Paul Pospisil
+Assignment: Space Invaders - Stage 2
+Recent Update: March 4th, 2023
 
-/* 
-    Authors:    Ben Cacic, Jason Szeto 
-    Description:    The purpose of this file is to handle the the synchronous and 
-                    asynchronous events that will happen in the game. All functions
-                    require atleast one or multiple of the objects.
+Description:    The purpose of this file is to handle the the synchronous and 
+                asynchronous events that will happen in the game. All functions
+                require atleast one or multiple of the objects.
 */
 
+#include "events.h"
 
 /* Laser_cannon_input( Laser_Cannon *laser_cannon): Is called from the game's main when a sideways 
                         arrow is pressed. It determines if the laser cannon will be able to move
