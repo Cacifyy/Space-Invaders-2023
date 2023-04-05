@@ -1,5 +1,5 @@
-prog: spaceinv.o raster.o model.o render.o events.o font.o splash.o clear.o
-	cc68x -g spaceinv.o raster.o model.o render.o events.o font.o splash.o clear.o -o prog
+prog: spaceinv.o raster.o model.o render.o events.o font.o  clear.o
+	cc68x -g spaceinv.o raster.o model.o render.o events.o font.o  clear.o -o prog
 
 spaceinv.o: spaceinv.c spaceinv.h
 	cc68x -g -c spaceinv.c
@@ -18,9 +18,6 @@ events.o: events.c events.h
 
 font.o: font.c font.h
 	cc68x -g -c font.c 
-
-splash.o: splash.c splash.h
-	cc68x -g -c splash.c
 
 clear.o: clear.s clear.h
 	gen -D -L2 clear.s 
