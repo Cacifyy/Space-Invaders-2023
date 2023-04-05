@@ -1,33 +1,17 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#define rows 10
-#define columns 5
-#define life_count 3
-#define SHOTS 10
-#define PLR_SHOTS 6
-
-#define MAX_X 640
-#define MIN_X 0
-#define MAX_Y 400
-#define MIN_Y 0
-
-#define WIDTH 10
-#define HEIGHT 5
-
-#define TRUE 1
-#define FALSE 0
-
 #include <stdio.h>
 #include <osbind.h>
 #include "types.h"
 #include "raster.h"
+#include "def.h"
 
 typedef struct 
 {
     UINT16 x, y;
     int delta_x;
-    BOOL lives[life_count]; 
+    BOOL lives[LIFE_COUNT]; 
     UINT16 lives_x, lives_y;
 } Laser_Cannon;
 
@@ -35,8 +19,8 @@ typedef struct
 {
     UINT16 x, y;
     int delta_x, delta_y;
-    BOOL is_alive[rows][columns];
-    UINT16 row[columns]; 
+    BOOL is_alive[ROWS][COLUMNS];
+    UINT16 row[COLUMNS]; 
     UINT16 left, right, bottom, dir;
     BOOL move;
 } Invader;
@@ -58,8 +42,7 @@ typedef struct
 typedef struct 
 {
     BOOL game_over;
-   /* UINT16 alien_counter;*/
-
+    UINT16 alien_counter;
 } Game;
 
 void init_laser_cannon(Laser_Cannon *laser_cannon);

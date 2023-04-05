@@ -11,14 +11,14 @@
 void init_laser_cannon(Laser_Cannon *laser_cannon) {
     int i;
 
-    laser_cannon->x = 20;
-    laser_cannon->y = 336;
+    laser_cannon->x = CANNON_START_X;
+    laser_cannon->y = CANNON_Y;
     laser_cannon->delta_x = 0;
     for( i = 0; i < 3; i++ ) {
         laser_cannon->lives[i] = TRUE;
     }       
-    laser_cannon->lives_x = 28;
-    laser_cannon->lives_y = 8;
+    laser_cannon->lives_x = LIVES_X;
+    laser_cannon->lives_y = LIVES_Y;
 
     return;
 }
@@ -27,18 +27,18 @@ void init_armada(Invader *invader) {
 
 int i,j;
 
-invader->x = 20;
-invader->y = 20;
+invader->x = INVADER_START_X;
+invader->y = INVADER_START_Y;
 invader->delta_x = -1;
 invader->delta_y = 0;
- for ( i = 0; i < rows; i++ ) {
-        for( j = 0; j < columns; j++ ) {
+ for ( i = 0; i < ROWS; i++ ) {
+        for( j = 0; j < COLUMNS; j++ ) {
             invader->is_alive[i][j] = TRUE;
         }
     }
-invader->left = 0;
-invader->right = 9;
-invader->bottom = 4;
+invader->left = INVADER_LEFT;
+invader->right = INVADER_RIGHT;
+invader->bottom = INVADER_BOTTOM;
 invader->dir = 0; 
 invader->move = TRUE;
 
@@ -59,8 +59,8 @@ void init_laser(Laser *laser) {
 
 void init_score(Score *score) {
 
-    score->x = 1;
-    score->y = 8;
+    score->x = SCORE_X;
+    score->y = SCORE_Y;
     score->score_arr[0] = 0;
 
     return;
@@ -68,7 +68,7 @@ void init_score(Score *score) {
 
 void init_game(Game *game) {
     game->game_over = FALSE;
-   /* game->alien_counter = 50;*/
+    game->alien_counter = ALIENS_TOTAL;
 }
 
 /* move_laser_cannon(Laser_Cannon *laser_cannon): move laser cannon 
@@ -86,7 +86,7 @@ void move_laser(Laser *laser) {
     {
         if(laser->is_on_screen[i] == TRUE) 
         {
-            if (laser->delta_y[i] > 0 && laser->y[i] >= (MAX_Y - 32)) 
+            if (laser->delta_y[i] > 0 && laser->y[i] >= (MAX_Y - 16)) 
             {
                 laser->is_on_screen[i] = FALSE;
                 laser->y[i] = 0; 
@@ -161,7 +161,7 @@ void find_bottom_of_armada(Invader *invader) {
 
     y = invader->bottom;
 
-    for (x = 0; x < rows; x++) {
+    for (x = 0; x < ROWS; x++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }
@@ -180,7 +180,7 @@ void find_right_of_armada(Invader *invader) {
 
     x = invader->right;
 
-    for (y = 0; y < columns; y++) {
+    for (y = 0; y < COLUMNS; y++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }
@@ -199,7 +199,7 @@ void find_left_of_armada(Invader *invader) {
 
     x = invader->left;
 
-    for (y = 0; y < columns; y++) {
+    for (y = 0; y < COLUMNS; y++) {
         if (invader->is_alive[x][y] == TRUE ) {
             same_edge = TRUE;
         }
@@ -219,12 +219,14 @@ void hit_det_on_armada (Invader *invader, Laser *laser, Score *score ) {
     for (k = 0; k < PLR_SHOTS; k++)
     {
         if (laser->is_on_screen[k] == TRUE) {
-            if(laser->y[k] <= (invader->y + 80)) 
+            if(laser->y[k] <= (invader->y + HEIGHT)) 
             {
-                if (laser->x[k] >= invader->x && laser->x[k] <= (invader->x + 10 )) {
+                if (laser->x[k] >= invader->x && laser->x[k] <= (invader->x + WIDTH )) {
                     i = (laser->x[k] - invader->x);
                     j = (laser->y[k] - invader->y) / 16;
 
+                /* Handles case where laser is exactly 80 pixels away from the top of the armada. The correct element can not be found because
+                80 (Height of armada) / 16 (height of each alien) == 5. */
                 if ((laser->y[k] - invader->y) == 80 ) {
                     j = 4;
                 }
@@ -251,7 +253,7 @@ void hit_det_on_player (Laser_Cannon *laser_cannon, Laser *laser, Game *game) {
     
     for (i = 6; i < SHOTS; i++) {   /* elements 6 to 9 are only fireable by the armada and not the player, that is why the loop begins at 6 and is terninated right before 10. */
         if (laser->is_on_screen[i] == TRUE) {
-            if (laser->y[i] >= 336 && laser->y[i] <= 352 ) {
+            if (laser->y[i] >= CANNON_Y && laser->y[i] <= CANNON_Y + 16 ) {
                 if (laser_cannon->x == laser->x[i]) {
                     if (laser->delta_y[i] > 0) {
                         reduce_player_lives(laser_cannon, game);

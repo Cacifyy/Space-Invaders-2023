@@ -7,7 +7,6 @@
                     require atleast one or multiple of the objects.
 */
 
-
 /* Laser_cannon_input( Laser_Cannon *laser_cannon): Is called from the game's main when a sideways 
                         arrow is pressed. It determines if the laser cannon will be able to move
                         in that direction. The case where it cannot is when the laser cannon is
@@ -15,15 +14,14 @@
 
 void Laser_cannon_input( Laser_Cannon *laser_cannon) {
 
-    if( laser_cannon->delta_x < 0 && laser_cannon->x > 0 )  
+    if( laser_cannon->delta_x < 0 && laser_cannon->x > MIN_X)  
     {  
         move_laser_cannon(laser_cannon);
     }
-    else if (laser_cannon->delta_x > 0 && laser_cannon->x < 39 ) 
+    else if (laser_cannon->delta_x > 0 && laser_cannon->x < MAX_X ) 
     {
         move_laser_cannon(laser_cannon);
     }
-
 
     return;
 }
@@ -36,31 +34,13 @@ void Player_laser_input(Laser_Cannon *laser_cannon, Laser *laser) {
     UINT16 i;
     for (i = 0; i < PLR_SHOTS; i++) {
         if (laser->is_on_screen[i] == FALSE ) {
-            laser->delta_y[i] = -4;
+            laser->delta_y[i] = -8;
             laser->x[i] = laser_cannon->x;
             laser->y[i] = laser_cannon->y;
             laser->is_on_screen[i] = TRUE;
 
             return;
         }
-    }
-    
-
-    return;
-}
-
-/* Alien_reaches_bottom(Invader *armada): determines if the armada has reached the bottom of 
-    screen. When this happens, will terminate the game. */
-
-void Alien_reaches_bottom(Invader *armada) {
-
-    UINT16 height_of_armada = (armada->bottom) * 16; 
-    UINT16 lowest_alien_pos = (armada->y) + height_of_armada;
-
-    if (lowest_alien_pos <= 16) 
-    {
-        BOOL lost = TRUE;
-        /*Player_loses(lost);*/
     }
 
     return;
@@ -80,7 +60,7 @@ if (armada->is_alive[top_row][alien] == TRUE) {
         if (laser->is_on_screen[i] == FALSE) {
             laser->x[i] = alien + armada->x; 
             laser->y[i] = armada->y;
-            laser->delta_y[i] = 4; 
+            laser->delta_y[i] = 8; 
             laser->is_on_screen[i] = TRUE;
 
             return;

@@ -71,9 +71,9 @@ render invaders function to determine which bitmap to use when plotting the 2D a
 void render_armada( const Invader *invader, UINT16 *base)
 {
    UINT16 i, j;
-   for (i = 0; i < rows; i++)
+   for (i = 0; i < ROWS; i++)
    {
-       for (j = 0; j < columns; j++)
+       for (j = 0; j < COLUMNS; j++)
        {
             if(invader->is_alive[i][j] == TRUE) 
             {
@@ -217,7 +217,7 @@ void render_lives (const Laser_Cannon *laser_cannon, UINT16 *base) {
     }
 
     x++;
-    for (j = 0; j < life_count; j++) {
+    for (j = 0; j < LIFE_COUNT; j++) {
         if (laser_cannon->lives[j] == TRUE) {
             draw_cannon_word(base, x, laser_cannon->lives_y);
             x++;

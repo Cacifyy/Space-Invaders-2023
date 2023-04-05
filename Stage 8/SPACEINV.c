@@ -103,7 +103,7 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
                     invader->delta_x = -1;
                     invader->delta_y = 0;
                     move_invaders(invader);
-                    if ((invader->x + invader->left) == 0) {
+                    if ((invader->x + invader->left) == MIN_X) {
                         invader->dir = 1;
                         invader->delta_y = 3;
                         move_invaders_down(invader);
@@ -133,7 +133,7 @@ void sync_ev (Invader *invader, Laser *laser, Score *score , Laser_Cannon *laser
 
     if (invader->delta_y > 0) {
         find_bottom_of_armada(invader);
-        if((invader->y + (invader->bottom * 16)) == 336) {
+        if((invader->y + (invader->bottom * ALIEN_HEIGHT)) >= CANNON_Y) {
             game->game_over = TRUE;
         }
     }

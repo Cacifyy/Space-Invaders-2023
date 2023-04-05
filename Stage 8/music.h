@@ -1,9 +1,11 @@
 #ifndef MUSIC_H
 #define MUSIC_H
+
 #include <stdio.h>
 
 #include "psg.h"
 #include "types.h"
+#include "def.h"
 
 typedef struct {
     int period;

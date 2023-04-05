@@ -7,6 +7,7 @@
 #include "model.h"
 #include "raster.h"
 #include "types.h"
+#include "def.h"
 
 void render_master(UINT16 *base, const Laser_Cannon *laser_cannon, const Laser *laser, const Invader *invader, const Score *score);
 void render_cannon( const Laser_Cannon *laser_cannon,  UINT16 *base);

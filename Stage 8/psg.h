@@ -4,25 +4,7 @@
 #include <osbind.h>
 
 #include "types.h"
-
-
-#define CHANNEL_A 0
-#define CHANNEL_B 1
-#define CHANNEL_C 2
-#define A_NOISE_C_MUSIC 3
-#define TRUE 1
-#define FALSE 0
-
-
-#define SAW_REGULAR 0x8
-#define TRIANGLE_PERIOD_INVERSE 0x00
-#define TRIANGLE_INVERSE 0xA
-#define SAW_PERIOD_INVERSE 0xB
-#define SAW_INVERSE 0xC
-#define TRIANGLE_PERIOD_REGULAR 0xD
-#define TRIANGLE_REGULAR 0xE
-#define SAW_PERIOD_REGULAR 0xF
-
+#include "def.h"
 
 
 extern volatile char* PSG_reg_select = 0xFF8800;

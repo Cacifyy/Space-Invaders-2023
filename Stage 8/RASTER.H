@@ -4,6 +4,8 @@
 #include "types.h"
 #include "font.h"
 #include "splash.h"
+#include "stdio.h"
+#include "def.h"
 
 void plot_pixel(UINT8 *base, int x, int y);
 void plot_vert_line(UINT8 *base, int x, int y0, int y1);
