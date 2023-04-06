@@ -37,7 +37,7 @@ void vbl_req();
 Function name: install_vector
 Input: int num, Vector vector
 Output: returns original vector
-Function details: installs a single vector
+Function details: installs a single vector, code is from resources folder in I drive
 */
 
 Vector install_vector(int num, Vector vector);
