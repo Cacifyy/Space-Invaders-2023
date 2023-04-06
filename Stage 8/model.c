@@ -1,13 +1,5 @@
 #include "model.h"
 
-/*  Authors: Ben Cacic and Jason Szeto
-
-    Description: The purpose of this source file is to
-        initialize the objects, and provide functions
-        to update them and the game state. 
-
-*/
-
 void init_laser_cannon(Laser_Cannon *laser_cannon) {
     int i;
 
@@ -71,14 +63,11 @@ void init_game(Game *game) {
     game->alien_counter = ALIENS_TOTAL;
 }
 
-/* move_laser_cannon(Laser_Cannon *laser_cannon): move laser cannon 
-    horizontally. */
 void move_laser_cannon(Laser_Cannon *laser_cannon) {
     laser_cannon->x += laser_cannon->delta_x;
 
 }
 
-/* move_laser(Laser *laser): move laser vertically. */ 
 void move_laser(Laser *laser) {
 
     UINT16 i;
@@ -107,8 +96,6 @@ void move_laser(Laser *laser) {
 
         }
 
-/* reduce_player_lives(Laser_Cannon *laser_cannon): decrease players' 
-    life count. Called when the player is hit. */
 void reduce_player_lives(Laser_Cannon *laser_cannon, Game *game) {
 
    if(laser_cannon->lives[0] == FALSE)
@@ -128,7 +115,6 @@ void reduce_player_lives(Laser_Cannon *laser_cannon, Game *game) {
     return;
 }
 
-/* move_invaders(Invader *invader): move armada vertically and horizontally. */ 
 void move_invaders(Invader *invader) {
 
     invader->x += invader->delta_x;
@@ -141,7 +127,6 @@ void move_invaders_down(Invader *invader) {
     return;
 }
 
-/*boundary_checker(Invader *invader): master function for checking boundaries.*/
 void boundary_checker(Invader *invader) {
 
     if (invader->dir == 0 && invader->x < 5) { 
@@ -153,7 +138,6 @@ void boundary_checker(Invader *invader) {
     }
 }
 
-/*find_bottom_of_armada(Invader *invader): find bottom of armada. */
 void find_bottom_of_armada(Invader *invader) {
  
     BOOL same_edge = FALSE;
@@ -172,7 +156,6 @@ void find_bottom_of_armada(Invader *invader) {
         return;
     }
 
-/* find_right_of_armada(Invader *invader): find right edge of armada. */
 void find_right_of_armada(Invader *invader) {
    
     BOOL same_edge = FALSE;
@@ -191,7 +174,6 @@ void find_right_of_armada(Invader *invader) {
         return;
     }
 
-/* find_left_of_armada(Invader *invader): find left edge of armada. */
 void find_left_of_armada(Invader *invader) {
     
     BOOL same_edge = FALSE;
@@ -210,8 +192,6 @@ void find_left_of_armada(Invader *invader) {
     return;
 }
 
-/* hit_det_on_armada (Invader *invader, Laser *laser, Score *score): determines if the player hit
-    an alien and updates the score if it did. */
 void hit_det_on_armada (Invader *invader, Laser *laser, Score *score, Game *game ) {
 
     UINT16 i, j, k; 
@@ -251,8 +231,6 @@ void hit_det_on_armada (Invader *invader, Laser *laser, Score *score, Game *game
     }
 } 
 
-/* hit_det_on_player (Laser_Cannon *laser_cannon, Laser *laser): determines if a laser fired
-    by an alien hits the player. */
 void hit_det_on_player (Laser_Cannon *laser_cannon, Laser *laser, Game *game) {
 
     UINT16 i;
@@ -272,37 +250,9 @@ void hit_det_on_player (Laser_Cannon *laser_cannon, Laser *laser, Game *game) {
     return;
 }
 
-/* Update_score(Score *score): Update the score value. */
 void Update_score(Score *score) {
 
     score->score_arr[0] += 10; /*just temporary. */
 
     return;
-}
-
-UINT16 pow(UINT16 num_base, UINT16 power) {
-
-    UINT16 result = num_base;
-    UINT16 temp = num_base;
-
-    if (power == 1) {
-        return result;
-    }
-    else if (power == 2) {
-        result = result * temp;
-    }
-
-/*
-    UINT16 result, i;
-    result = num_base;
-
-    for(i = 0; i < power - 1; i++ ) {
-        result *= result;
-    }
-   */
-    return result;
-}
-
-BOOL Player_loses(BOOL lost) {
-    return lost;
 }

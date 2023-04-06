@@ -106,7 +106,6 @@ void render_score (const Score *score, UINT16 *base)
         n = 1;
     }
 
-
     if (n == 3) { 
         first_dig = score_dig / 100;
         second_dig = (first_dig * 100);
@@ -119,7 +118,6 @@ void render_score (const Score *score, UINT16 *base)
         score_dig /= 10;
     }
 
-    /*score_dig /= (UINT16) pow((double)10,(double)n-1);*/ /* need to comment this shit, looks like it amkes no snese*/
     if (score_dig == 0) {
         num_place = 0;
     }
@@ -226,18 +224,8 @@ void render_lives (const Laser_Cannon *laser_cannon, UINT16 *base) {
 
 }
 
-void render_splash(UINT32 *base, UINT16 game_selection ) {
+void render_splash(UINT32 *base) {
     draw_splash(base);
-/*
-    if (game_selection == 0) {
-        draw_word((UINT16 *)base, 16, 200, 0);
-    }
-    else if (game_selection == 1 ) {
-        draw_word((UINT16 *)base, 16, 300, 0);
-    }
-    else if (game_selection == 2) {
-        draw_word((UINT16 *)base, 16, 400, 0);
-    }
-    */
+
 }
 

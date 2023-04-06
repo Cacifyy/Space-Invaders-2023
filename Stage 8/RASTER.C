@@ -233,17 +233,17 @@ void draw_splash(UINT32 *base) {
 }
 /*
 UINT16 *get_video_base() {
-
 	UINT32 old_ssp;
 	UINT8 *base;
 
 	old_ssp = Super(0L);
 
-	base = (UINT16 *) get_base();
+	base = (UINT16 *)*get_base();
+	base = (UINT16 *)base >> 8;
 
 	Super(old_ssp);
 
-	return base;
+	return (UINT16 *)base;
 }
 
 void set_video_base() {

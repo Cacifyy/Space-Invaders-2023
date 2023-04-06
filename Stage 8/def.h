@@ -3,14 +3,11 @@ Group Student Name: Jason Szeto, Ben Cacic
 Student Email: jszet006@mtroyal.ca, bcaci729@mtroyal.ca
 File Name: def.H
 Instructor: Paul Pospisil
-Assignment: Space Invaders - Stage 2
+Assignment: Space Invaders
 Recent Update: April 4th, 2023
 
-Description: Helper header file to house all the defines of previous stages and beyond, to reduce redundant defines
+Description: Helper header file to house all the defines of previous stages to reduce redundant defines
 */
-
-
-
 
 #ifndef DEF_H
 #define DEF_H
@@ -20,6 +17,7 @@ Description: Helper header file to house all the defines of previous stages and 
 #define LIFE_COUNT 3
 #define SHOTS 10    /* Total shots that can exist in the game at once */
 #define PLR_SHOTS 6 /* Number of laser shots dedicated to the player (0 - 5), where as the alien has 6 - 9 */
+#define LASER_SPEED 8
 
 #define MAX_X 39    /* Max x value in terms of words */
 #define MAX_X_PIXELS 640 /* Max x value in terms of pixels */

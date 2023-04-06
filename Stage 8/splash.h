@@ -1,12 +1,12 @@
 /*    
 Group Student Name: Jason Szeto, Ben Cacic
 Student Email: jszet006@mtroyal.ca, bcaci729@mtroyal.ca
-File Name: splash.H
+File Name: splash.h
 Instructor: Paul Pospisil
-Assignment: Space Invaders - Stage 2
-Recent Update: April 1th, 2023
+Assignment: Space Invaders - Stage 8
+Recent Update: April 2th, 2023
 
-Description: C array to house the splash screen only, did not place with the other bitmaps due to its size
+Description: Long word array that holds the splash map.
 */
 
 
