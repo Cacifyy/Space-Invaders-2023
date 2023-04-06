@@ -3,6 +3,7 @@
 int note_playing = 0;
 int duration;
 
+
 const tones imperial_march[] = {
    /* bar 1 and 2 good*/
     {0,  0.1},
@@ -116,7 +117,8 @@ void start_music(){
 
 void update_music(UINT32 time_elapsed){
 
-    duration-= time_elapsed; 
+    duration -= time_elapsed; 
+
     
     if(duration <= 0){
         
