@@ -63,8 +63,6 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     set_video_base(base);
                     
-                    
-
                     buffer_num = 0;
                 } 
                 else if (buffer_num == 0) {
@@ -75,9 +73,6 @@ void game_start(UINT16 *base, UINT16 *second_base) {
 
                     set_video_base(second_base);
                    
-
-                     
- 
                     buffer_num = 1;
                 }
                 
@@ -88,10 +83,6 @@ void game_start(UINT16 *base, UINT16 *second_base) {
                 
                 
             }
-       
-     
-    render_master(base, &laser_cannon, &laser, &invader, &score); /*Render very last updated frame because if the player is hit 3 times, it updates first in the model and
-    then terminates the game while still displaying 1 life left because render_master() isn't called until next iteration of the loop.*/
 
     clear_screen(base);
 
@@ -186,7 +177,7 @@ UINT16 menu(UINT32 *base) {
     UINT16 game_selection;
     UINT32 input;
 
-    render_splash((UINT32*) base, game_selection);
+    render_splash((UINT32*) base);
 
     while (1) {
         if(Cconis()) {
@@ -204,53 +195,6 @@ UINT16 menu(UINT32 *base) {
 
     }
 }
-
-/*
-    UINT16 game_selection = 0; 
-    UINT32 input;
-
-    render_splash((UINT32*) base, game_selection);
-    while (1) {
-        if (Cconis()) {
-            input = Cnecin();
-
-            if(input == ENTER) {
-                return game_selection;
-            }
-            else if (input == ESC) {
-                game_selection = EXIT_GAME;
-                return game_selection;
-            }
-            else if (input == DOWN_ARROW) {
-                if ((game_selection + 1) < 3) {
-                    game_selection++;
-                }
-            }
-            else if (input == UP_ARROW) {
-                if((game_selection - 1) >= 0) {
-                    game_selection--;
-                }
-            }   
-        }
-        render_splash((UINT32*) base, game_selection);
-    }/*
-}*/
-
-/*
-UINT32 game_clock() {
-
-    UINT32 curr_clock;
-    UINT32 old_ssp;
-
-    old_ssp = Super(0);
-    curr_clock = *((UINT32 *)0x462);
-    Super(old_ssp);
-
-    return curr_clock;
-
-}
-*/
-
 
 UINT8 *align_base(UINT8 *buffer) {
 

@@ -6,9 +6,7 @@ vbl_music_timer = 0;
 vbl_game_timer = 0;
 
 
-
-
-void vbl_req(){
+void vbl_timers(){
     vbl_music_timer++;
     vbl_game_timer++;
    

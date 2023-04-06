@@ -10,7 +10,6 @@ Recent Update: April 5th, 2023
 #ifndef ISR_H
 #define ISR_H
 
-
 #include "music.h"
 #include "types.h"
 #include "def.h"
@@ -22,22 +21,20 @@ extern int vbl_music_timer;
 extern int vbl_game_timer;
 
 
-
-
 /* 
-Function name: vbl_req
+Function name: vbl_timers
 Input: None
 Output: increments the vbl timers
 Function details: Increments the game and music timers according to the VBL
 */
 
-void vbl_req();
+void vbl_timers();
 
 /* 
 Function name: install_vector
 Input: int num, Vector vector
 Output: returns original vector
-Function details: installs a single vector, code is from resources folder in I drive
+Function details: installs a single vector
 */
 
 Vector install_vector(int num, Vector vector);

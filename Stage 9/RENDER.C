@@ -226,18 +226,7 @@ void render_lives (const Laser_Cannon *laser_cannon, UINT16 *base) {
 
 }
 
-void render_splash(UINT32 *base, UINT16 game_selection ) {
+void render_splash(UINT32 *base) {
     draw_splash(base);
-/*
-    if (game_selection == 0) {
-        draw_word((UINT16 *)base, 16, 200, 0);
-    }
-    else if (game_selection == 1 ) {
-        draw_word((UINT16 *)base, 16, 300, 0);
-    }
-    else if (game_selection == 2) {
-        draw_word((UINT16 *)base, 16, 400, 0);
-    }
-    */
 }
 
